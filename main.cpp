@@ -51,11 +51,10 @@ int main(int argc, char *argv[])
     app.setApplicationName("AudioPlayer");
     app.setOrganizationName("IPetrash");
     app.setOrganizationDomain("ipetrash.org");
-    app.setApplicationDisplayName(QObject::trUtf8("QML example AudioPlayer"));
+    app.setApplicationDisplayName(QObject::trUtf8("QML example AudioPlayer v0.0.1. Author Ilya Petrash"));
 
     QQmlApplicationEngine engine;
-
-    engine.rootContext()->setContextProperty(QStringLiteral("qApp"), &app);
+    engine.rootContext()->setContextProperty(QStringLiteral("applicationTitle"), app.applicationDisplayName());
 
     QQmlContext * rootContext = engine.rootContext();
     const QStringList & musicPaths = QStandardPaths::standardLocations(QStandardPaths::MusicLocation);

@@ -49,7 +49,7 @@ import QtMultimedia 5.0
 Window {
     id: window
 
-    title: qApp.applicationDisplayName
+    title: applicationTitle
 
     width: 300
     height: 60
