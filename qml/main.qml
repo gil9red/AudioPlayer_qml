@@ -166,17 +166,26 @@ Window {
             }
 
             Button {
-                id: playButton
+                id: playPauseButton
 
                 enabled: mediaPlayer.hasAudio
-                Layout.preferredWidth: playButton.implicitHeight
+                Layout.preferredWidth: playPauseButton.implicitHeight
                 iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/pause-16.png" : "qrc:/play-16.png"
                 onClicked: mediaPlayer.playbackState === MediaPlayer.PlayingState ? mediaPlayer.pause() : mediaPlayer.play()
+            }
+            Button {
+                id: stopButton
+
+                enabled: mediaPlayer.hasAudio
+                Layout.preferredWidth: stopButton.implicitHeight
+                iconSource: "qrc:/stop-16.png"
+                onClicked: mediaPlayer.stop()
             }
 
             Slider {
                 id: positionSlider
 
+                enabled: mediaPlayer.hasAudio
                 Layout.fillWidth: true
                 maximumValue: mediaPlayer.duration
 
@@ -200,20 +209,28 @@ Window {
             Label {
                 id: positionLabel
 
+                // Текущее
                 readonly property int minutes: Math.floor(mediaPlayer.position / 60000)
                 readonly property int seconds: Math.round((mediaPlayer.position % 60000) / 1000)
 
+                // Длительность в минута и секундах
+                readonly property int durationMinutes: Math.floor(mediaPlayer.duration / 60000)
+                readonly property int durationSeconds: Math.round((mediaPlayer.duration % 60000) / 1000)
+
                 text: Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss"))
+                      + "/" + Qt.formatTime(new Date(0, 0, 0, 0, durationMinutes, durationSeconds), qsTr("mm:ss"))
             }
 
             Slider {
                 id: volumeSlider
+
+                enabled: mediaPlayer.hasAudio
                 minimumValue: 0.0
                 maximumValue: 1.0
                 value: 1.0
                 stepSize: 0.01
 
-                Layout.fillWidth: true
+                implicitWidth: 50
 
                 property bool sync: false
 
@@ -235,9 +252,9 @@ Window {
             Button {
                 id : muteButton
 
-                //text: "Mute"
+                Layout.preferredWidth: muteButton.implicitHeight
+                enabled: mediaPlayer.hasAudio
                 checkable: true
-//                Layout.fillWidth: true
                 checked: mediaPlayer.muted
                 iconSource: mediaPlayer.muted ? "qrc:/mute-16.png" : "qrc:/mute-off-16.png"
                 onCheckedChanged: mediaPlayer.muted = checked
