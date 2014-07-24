@@ -235,10 +235,11 @@ Window {
             Button {
                 id : muteButton
 
-                text: "Mute"
+                //text: "Mute"
                 checkable: true
-                Layout.fillWidth: true
+//                Layout.fillWidth: true
                 checked: mediaPlayer.muted
+                iconSource: mediaPlayer.muted ? "qrc:/mute-16.png" : "qrc:/mute-off-16.png"
                 onCheckedChanged: mediaPlayer.muted = checked
             }
         }

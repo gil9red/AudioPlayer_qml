@@ -7,7 +7,12 @@
         <file alias="play-32.png">images/media-play-32.png</file>
         <file alias="backward-32.png">images/media-seek-backward-32.png</file>
         <file alias="forward-32.png">images/media-seek-forward-32.png</file>
-        <file alias="stop-32.png">images/media-stop-32.png</file>
+        <file alias="stop-32.png">images/media-stop-32.png</file>        
+        <file alias="mute-16.png">images/mute-16.png</file>
+        <file alias="mute-32.png">images/mute-32.png</file>
+        <file alias="mute-off-16.png">images/mute-off-16.png</file>
+        <file alias="mute-off-32.png">images/mute-off-32.png</file>
         <file alias="audioplayer.png">images/audioplayer.png</file>
+        <file>images/audioplayer.ico</file>
     </qresource>
 </RCC>

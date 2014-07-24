@@ -70,5 +70,6 @@ int main(int argc, char *argv[])
     QWindow * window = qobject_cast<QWindow *>(root);
     if (window)
         window->show();
+
     return app.exec();
 }
