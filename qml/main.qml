@@ -52,72 +52,72 @@ Window {
     title: applicationTitle
 
     width: 300
-    height: 60
-    minimumWidth: row.implicitWidth + 18
-    minimumHeight: column.implicitHeight + 18
+    height: 150
+    minimumWidth: row.implicitWidth
+    minimumHeight: height
 
-//    // Цвет окна: в данном случае окно прозрачно
-//    //! [color]
-//    color: dwm.compositionEnabled ? "transparent" : dwm.realColorizationColor
-//    //! [color]
+    //    // Цвет окна: в данном случае окно прозрачно
+    //    //! [color]
+    //    color: dwm.compositionEnabled ? "transparent" : dwm.realColorizationColor
+    //    //! [color]
 
-//    // Полупрозрачность окна
-//    //! [dwm]
-//    Win.DwmFeatures {
-//        id: dwm
+    //    // Полупрозрачность окна
+    //    //! [dwm]
+    //    Win.DwmFeatures {
+    //        id: dwm
 
-//        topGlassMargin: -1
-//        leftGlassMargin: -1
-//        rightGlassMargin: -1
-//        bottomGlassMargin: -1
-//    }
-//    //! [dwm]
+    //        topGlassMargin: -1
+    //        leftGlassMargin: -1
+    //        rightGlassMargin: -1
+    //        bottomGlassMargin: -1
+    //    }
+    //    //! [dwm]
 
     // Кнопка и прогресс-бар на иконке программы на панели задач
-//    //! [taskbar]
-//    Win.TaskbarButton {
-//        id: taskbar
+    //    //! [taskbar]
+    //    Win.TaskbarButton {
+    //        id: taskbar
 
-//        progress.value: mediaPlayer.position
-//        progress.maximum: mediaPlayer.duration
-//        progress.visible: mediaPlayer.hasAudio
-//        progress.paused: mediaPlayer.playbackState === MediaPlayer.PausedState
+    //        progress.value: mediaPlayer.position
+    //        progress.maximum: mediaPlayer.duration
+    //        progress.visible: mediaPlayer.hasAudio
+    //        progress.paused: mediaPlayer.playbackState === MediaPlayer.PausedState
 
-//        overlay.iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/play-32.png" :
-//                            mediaPlayer.playbackState === MediaPlayer.PausedState ? "qrc:/pause-32.png" : "qrc:/stop-32.png"
-//    }
-//    //! [taskbar]
+    //        overlay.iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/play-32.png" :
+    //                            mediaPlayer.playbackState === MediaPlayer.PausedState ? "qrc:/pause-32.png" : "qrc:/stop-32.png"
+    //    }
+    //    //! [taskbar]
 
     // Кнопки управления воспроизведением на всплывающей панели кнопки панели задач
-//    //! [thumbbar]
-//    Win.ThumbnailToolBar {
-//        id: thumbbar
+    //    //! [thumbbar]
+    //    Win.ThumbnailToolBar {
+    //        id: thumbbar
 
-//        Win.ThumbnailToolButton {
-//            tooltip: qsTr("Rewind")
-//            iconSource: "qrc:/backward-32.png"
+    //        Win.ThumbnailToolButton {
+    //            tooltip: qsTr("Rewind")
+    //            iconSource: "qrc:/backward-32.png"
 
-//            enabled: mediaPlayer.position > 0
-//            onClicked: mediaPlayer.seek(mediaPlayer.position - mediaPlayer.duration / 10)
-//        }
+    //            enabled: mediaPlayer.position > 0
+    //            onClicked: mediaPlayer.seek(mediaPlayer.position - mediaPlayer.duration / 10)
+    //        }
 
-//        Win.ThumbnailToolButton {
-//            tooltip: mediaPlayer.playbackState === MediaPlayer.PlayingState ? qsTr("Pause") : qsTr("Play")
-//            iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/pause-32.png" : "qrc:/play-32.png"
+    //        Win.ThumbnailToolButton {
+    //            tooltip: mediaPlayer.playbackState === MediaPlayer.PlayingState ? qsTr("Pause") : qsTr("Play")
+    //            iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/pause-32.png" : "qrc:/play-32.png"
 
-//            enabled: mediaPlayer.hasAudio
-//            onClicked: mediaPlayer.playbackState === MediaPlayer.PlayingState ? mediaPlayer.pause() : mediaPlayer.play()
-//        }
+    //            enabled: mediaPlayer.hasAudio
+    //            onClicked: mediaPlayer.playbackState === MediaPlayer.PlayingState ? mediaPlayer.pause() : mediaPlayer.play()
+    //        }
 
-//        Win.ThumbnailToolButton {
-//            tooltip: qsTr("Fast forward")
-//            iconSource: "qrc:/forward-32.png"
+    //        Win.ThumbnailToolButton {
+    //            tooltip: qsTr("Fast forward")
+    //            iconSource: "qrc:/forward-32.png"
 
-//            enabled: mediaPlayer.position < mediaPlayer.duration
-//            onClicked: mediaPlayer.seek(mediaPlayer.position + mediaPlayer.duration / 10)
-//        }
-//    }
-//    //! [thumbbar]
+    //            enabled: mediaPlayer.position < mediaPlayer.duration
+    //            onClicked: mediaPlayer.seek(mediaPlayer.position + mediaPlayer.duration / 10)
+    //        }
+    //    }
+    //    //! [thumbbar]
 
     MediaPlayer {
         id: mediaPlayer
@@ -149,25 +149,7 @@ Window {
             id: row
 
             Button {
-                id: openButton
-
-                text: qsTr("...")
-                Layout.preferredWidth: openButton.implicitHeight
-                onClicked: fileDialog.open()
-
-                FileDialog {
-                    id: fileDialog
-
-                    folder : musicUrl
-                    title: qsTr("Open file")
-                    nameFilters: [qsTr("MP3 files (*.mp3)"), qsTr("All files (*.*)")]
-                    onAccepted: mediaPlayer.source = fileDialog.fileUrl
-                }
-            }
-
-            Button {
                 id: playPauseButton
-
                 enabled: mediaPlayer.hasAudio
                 Layout.preferredWidth: playPauseButton.implicitHeight
                 iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/pause-16.png" : "qrc:/play-16.png"
@@ -175,7 +157,6 @@ Window {
             }
             Button {
                 id: stopButton
-
                 enabled: mediaPlayer.hasAudio
                 Layout.preferredWidth: stopButton.implicitHeight
                 iconSource: "qrc:/stop-16.png"
@@ -184,7 +165,6 @@ Window {
 
             Slider {
                 id: positionSlider
-
                 enabled: mediaPlayer.hasAudio
                 Layout.fillWidth: true
                 maximumValue: mediaPlayer.duration
@@ -223,13 +203,10 @@ Window {
 
             Slider {
                 id: volumeSlider
-
-                enabled: mediaPlayer.hasAudio
                 minimumValue: 0.0
                 maximumValue: 1.0
                 value: 1.0
                 stepSize: 0.01
-
                 implicitWidth: 50
 
                 property bool sync: false
@@ -251,13 +228,102 @@ Window {
 
             Button {
                 id : muteButton
-
                 Layout.preferredWidth: muteButton.implicitHeight
-                enabled: mediaPlayer.hasAudio
                 checkable: true
                 checked: mediaPlayer.muted
                 iconSource: mediaPlayer.muted ? "qrc:/mute-16.png" : "qrc:/mute-off-16.png"
                 onCheckedChanged: mediaPlayer.muted = checked
+            }
+        }
+
+        ColumnLayout {
+            id : playlist
+
+            ScrollView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                flickableItem.interactive: true
+
+                ListView {
+                    id: playlistView
+                    anchors.fill: parent
+                    model: playlistModel
+                    delegate: playlistDelegate
+                    highlight: Rectangle {
+                        color: "#55000000"
+                    }
+                }
+            }
+
+            RowLayout {
+                spacing: 0
+
+                ToolButton {
+                    text: "+"
+                    implicitWidth: 24
+                    implicitHeight: 24
+
+                    onClicked: addingMusicDialog.open()
+
+                    FileDialog {
+                        id: addingMusicDialog
+                        folder : musicUrl
+                        title: qsTr("Open file")
+                        nameFilters: [qsTr("MP3 files (*.mp3)"), qsTr("All files (*.*)")]
+                        onAccepted: {
+                            var file_protocol = "file:///"
+                            var path = fileUrl.toString()
+                            path = path.substring(file_protocol.length, path.length)
+                            playlistModel.append(
+                                        {
+                                            "path" : path,
+                                        })
+                        }
+                    }
+                }
+                ToolButton {
+                    text: "-"
+                    implicitWidth: 24
+                    implicitHeight: 24
+                    onClicked: playlistModel.remove(playlistView.currentIndex)
+                }
+                ToolButton {
+                    text: "x"
+                    implicitWidth: 24
+                    implicitHeight: 24
+                    onClicked: playlistModel.clear()
+                }
+            }
+
+            Component {
+                id: playlistDelegate
+
+                Item {
+                    width: parent.width
+                    height: 30
+
+                    Rectangle {
+                        id : rectItem
+                        anchors.fill: parent
+                        color: "#33000000"
+                        visible: mouse.pressed
+                    }
+
+                    Text {
+                        text: path
+                    }
+
+                    MouseArea {
+                        id: mouse
+                        anchors.fill: parent
+                        onClicked: playlistView.currentIndex = index
+                        onDoubleClicked: mediaPlayer.source = path
+                    }
+                }
+            }
+
+            ListModel {
+                 id: playlistModel
             }
         }
     }
