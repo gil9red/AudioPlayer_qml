@@ -1,123 +1,87 @@
-/****************************************************************************
-**
-** Copyright (C) 2014 Digia Plc and/or its subsidiary(-ies).
-** Contact: http://www.qt-project.org/legal
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** You may use this file under the terms of the BSD license as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of Digia Plc and its Subsidiary(-ies) nor the names
-**     of its contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
-
 import QtQuick 2.1
 import QtQuick.Window 2.1
 import QtQuick.Layouts 1.0
 import QtQuick.Controls 1.0
 import QtQuick.Dialogs 1.0
 import QtMultimedia 5.0
-//import QtWinExtras 1.0 as Win
+import QtWinExtras 1.0 as Win
+
 
 Window {
     id: window
+    title: mediaPlayer.title ? mediaPlayer.title : applicationTitle
+    width: 400
+    height: 220
 
-    title: applicationTitle
+//    // Цвет окна: в данном случае окно прозрачно
+//    //! [color]
+//    color: dwm.compositionEnabled ? "transparent" : dwm.realColorizationColor
+//    //! [color]
 
-    width: 300
-    height: 150
-    minimumWidth: row.implicitWidth
-    minimumHeight: height
+//    // Полупрозрачность окнаr
+//    //! [dwm]
+//    Win.DwmFeatures {
+//        id: dwm
+//        topGlassMargin: -1
+//        leftGlassMargin: -1
+//        rightGlassMargin: -1
+//        bottomGlassMargin: -1
+//    }
+//    //! [dwm]
 
-    //    // Цвет окна: в данном случае окно прозрачно
-    //    //! [color]
-    //    color: dwm.compositionEnabled ? "transparent" : dwm.realColorizationColor
-    //    //! [color]
+//    // Кнопка и прогресс-бар на иконке программы на панели задач
+//    //! [taskbar]
+//    Win.TaskbarButton {
+//        id: taskbar
 
-    //    // Полупрозрачность окна
-    //    //! [dwm]
-    //    Win.DwmFeatures {
-    //        id: dwm
+//        progress.value: mediaPlayer.position
+//        progress.maximum: mediaPlayer.duration
+//        progress.visible: mediaPlayer.hasAudio
+//        progress.paused: mediaPlayer.playbackState === MediaPlayer.PausedState
 
-    //        topGlassMargin: -1
-    //        leftGlassMargin: -1
-    //        rightGlassMargin: -1
-    //        bottomGlassMargin: -1
-    //    }
-    //    //! [dwm]
+//        overlay.iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "play-32.png" :
+//                                                                                     mediaPlayer.playbackState === MediaPlayer.PausedState ? "pause-32.png" : "stop-32.png"
+//    }
+//    //! [taskbar]
 
-    // Кнопка и прогресс-бар на иконке программы на панели задач
-    //    //! [taskbar]
-    //    Win.TaskbarButton {
-    //        id: taskbar
+//    // Кнопки управления воспроизведением на всплывающей панели кнопки панели задач
+//    //! [thumbbar]
+//    Win.ThumbnailToolBar {
+//        id: thumbbar
 
-    //        progress.value: mediaPlayer.position
-    //        progress.maximum: mediaPlayer.duration
-    //        progress.visible: mediaPlayer.hasAudio
-    //        progress.paused: mediaPlayer.playbackState === MediaPlayer.PausedState
+//        Win.ThumbnailToolButton {
+//            tooltip: qsTr("Rewind")
+//            iconSource: "backward-32.png"
 
-    //        overlay.iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/play-32.png" :
-    //                            mediaPlayer.playbackState === MediaPlayer.PausedState ? "qrc:/pause-32.png" : "qrc:/stop-32.png"
-    //    }
-    //    //! [taskbar]
+//            enabled: mediaPlayer.position > 0
+//            onClicked: mediaPlayer.seek(mediaPlayer.position - mediaPlayer.duration / 10)
+//        }
 
-    // Кнопки управления воспроизведением на всплывающей панели кнопки панели задач
-    //    //! [thumbbar]
-    //    Win.ThumbnailToolBar {
-    //        id: thumbbar
+//        Win.ThumbnailToolButton {
+//            tooltip: mediaPlayer.playbackState === MediaPlayer.PlayingState ? qsTr("Pause") : qsTr("Play")
+//            iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "pause-32.png" : "play-32.png"
 
-    //        Win.ThumbnailToolButton {
-    //            tooltip: qsTr("Rewind")
-    //            iconSource: "qrc:/backward-32.png"
+//            enabled: mediaPlayer.hasAudio
+//            onClicked: mediaPlayer.playbackState === MediaPlayer.PlayingState ? mediaPlayer.pause() : mediaPlayer.play()
+//        }
 
-    //            enabled: mediaPlayer.position > 0
-    //            onClicked: mediaPlayer.seek(mediaPlayer.position - mediaPlayer.duration / 10)
-    //        }
+//        Win.ThumbnailToolButton {
+//            tooltip: qsTr("Fast forward")
+//            iconSource: "forward-32.png"
 
-    //        Win.ThumbnailToolButton {
-    //            tooltip: mediaPlayer.playbackState === MediaPlayer.PlayingState ? qsTr("Pause") : qsTr("Play")
-    //            iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/pause-32.png" : "qrc:/play-32.png"
+//            enabled: mediaPlayer.position < mediaPlayer.duration
+//            onClicked: mediaPlayer.seek(mediaPlayer.position + mediaPlayer.duration / 10)
+//        }
 
-    //            enabled: mediaPlayer.hasAudio
-    //            onClicked: mediaPlayer.playbackState === MediaPlayer.PlayingState ? mediaPlayer.pause() : mediaPlayer.play()
-    //        }
+//        Win.ThumbnailToolButton {
+//            tooltip: qsTr("Stop")
+//            iconSource: "stop-32.png"
 
-    //        Win.ThumbnailToolButton {
-    //            tooltip: qsTr("Fast forward")
-    //            iconSource: "qrc:/forward-32.png"
-
-    //            enabled: mediaPlayer.position < mediaPlayer.duration
-    //            onClicked: mediaPlayer.seek(mediaPlayer.position + mediaPlayer.duration / 10)
-    //        }
-    //    }
-    //    //! [thumbbar]
+//            enabled: mediaPlayer.playbackState === MediaPlayer.PlayingState
+//            onClicked: mediaPlayer.stop()
+//        }
+//    }
+//    //! [thumbbar]
 
     MediaPlayer {
         id: mediaPlayer
@@ -126,6 +90,28 @@ Window {
         readonly property string title: !!metaData.author && !!metaData.title
                                         ? qsTr("%1 - %2").arg(metaData.author).arg(metaData.title)
                                         : metaData.author || metaData.title || source
+
+        function iconFromVolume() {
+            var muteIcon = "mute-16.png"
+            if (mediaPlayer.muted === true)
+                return muteIcon
+            else {
+                if (mediaPlayer.volume === 0.0)
+                    return muteIcon
+
+                var volume = mediaPlayer.volume
+                if (volume > 0.0 & volume < 0.33)
+                    return "volume-1-16.png"
+
+                else if (volume >= 0.33 && volume < 0.66)
+                    return "volume-2-16.png"
+
+                else if (volume >= 0.66)
+                    return "volume-3-16.png"
+            }
+
+            return muteIcon
+        }
     }
 
     ColumnLayout {
@@ -148,25 +134,68 @@ Window {
         RowLayout {
             id: row
 
-            Button {
+            ToolButton {
                 id: playPauseButton
-                enabled: mediaPlayer.hasAudio
+                enabled: mediaPlayer.hasAudio || playlistView.currentItem
                 Layout.preferredWidth: playPauseButton.implicitHeight
-                iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "qrc:/pause-16.png" : "qrc:/play-16.png"
-                onClicked: mediaPlayer.playbackState === MediaPlayer.PlayingState ? mediaPlayer.pause() : mediaPlayer.play()
+                iconSource: mediaPlayer.playbackState === MediaPlayer.PlayingState ? "pause-16.png" : "play-16.png"
+                onClicked: {
+                    if (mediaPlayer.playbackState === MediaPlayer.PlayingState)
+                        mediaPlayer.pause()
+                    else if (mediaPlayer.playbackState === MediaPlayer.StoppedState) {
+                        var index = playlistView.currentIndex
+                        var path = playlistModel.get(index)["path"]
+                        mediaPlayer.source = path
+                    } else
+                        mediaPlayer.play()
+                }
             }
-            Button {
+            ToolButton {
                 id: stopButton
                 enabled: mediaPlayer.hasAudio
                 Layout.preferredWidth: stopButton.implicitHeight
-                iconSource: "qrc:/stop-16.png"
+                iconSource: "stop-16.png"
                 onClicked: mediaPlayer.stop()
             }
-
+            ToolButton {
+                tooltip: qsTr("Rewind")
+                iconSource: "backward-16.png"
+                enabled: mediaPlayer.position > 0
+                onClicked: mediaPlayer.seek(mediaPlayer.position - mediaPlayer.duration / 10)
+            }
+            ToolButton {
+                tooltip: qsTr("Fast forward")
+                iconSource: "forward-16.png"
+                enabled: mediaPlayer.position < mediaPlayer.duration
+                onClicked: mediaPlayer.seek(mediaPlayer.position + mediaPlayer.duration / 10)
+            }
+            ToolButton {
+                tooltip: qsTr("Previous")
+                iconSource: "previous-16.png"
+                enabled: playlistView.currentIndex > 0
+                onClicked: {
+                    playlistView.currentIndex--
+                    var index = playlistView.currentIndex
+                    var path = playlistModel.get(index)["path"]
+                    mediaPlayer.source = path
+                }
+            }
+            ToolButton {
+                tooltip: qsTr("Next")
+                iconSource: "next-16.png"
+                enabled: playlistView.currentIndex < playlistView.count - 1
+                onClicked: {
+                    playlistView.currentIndex++
+                    var index = playlistView.currentIndex
+                    var path = playlistModel.get(index)["path"]
+                    mediaPlayer.source = path
+                }
+            }
             Slider {
                 id: positionSlider
                 enabled: mediaPlayer.hasAudio
-                Layout.fillWidth: true
+                Layout.minimumWidth: 75
+                Layout.fillWidth: true                
                 maximumValue: mediaPlayer.duration
 
                 property bool sync: false
@@ -197,8 +226,16 @@ Window {
                 readonly property int durationMinutes: Math.floor(mediaPlayer.duration / 60000)
                 readonly property int durationSeconds: Math.round((mediaPlayer.duration % 60000) / 1000)
 
-                text: Qt.formatTime(new Date(0, 0, 0, 0, minutes, seconds), qsTr("mm:ss"))
-                      + "/" + Qt.formatTime(new Date(0, 0, 0, 0, durationMinutes, durationSeconds), qsTr("mm:ss"))
+
+
+                text: {
+                    var formatTime = function(date) {
+                        return Qt.formatTime(date, qsTr("mm:ss"))
+                    }
+                    var currentTime = formatTime(new Date(0, 0, 0, 0, minutes, seconds))
+                    var durationTime = formatTime(new Date(0, 0, 0, 0, durationMinutes, durationSeconds))
+                    return currentTime + "/" + durationTime
+                }
             }
 
             Slider {
@@ -212,8 +249,10 @@ Window {
                 property bool sync: false
 
                 onValueChanged: {
-                    if (!sync)
+                    if (!sync) {
                         mediaPlayer.volume = value
+                        muteButton.iconSource = mediaPlayer.iconFromVolume()
+                    }
                 }
 
                 Connections {
@@ -226,13 +265,16 @@ Window {
                 }
             }
 
-            Button {
+            ToolButton {
                 id : muteButton
                 Layout.preferredWidth: muteButton.implicitHeight
                 checkable: true
                 checked: mediaPlayer.muted
-                iconSource: mediaPlayer.muted ? "qrc:/mute-16.png" : "qrc:/mute-off-16.png"
-                onCheckedChanged: mediaPlayer.muted = checked
+                iconSource: mediaPlayer.iconFromVolume()
+                onCheckedChanged: {
+                    mediaPlayer.muted = checked
+                    iconSource = mediaPlayer.iconFromVolume()
+                }
             }
         }
 
@@ -249,48 +291,41 @@ Window {
                     anchors.fill: parent
                     model: playlistModel
                     delegate: playlistDelegate
-                    highlight: Rectangle {
-                        color: "#55000000"
-                    }
+//                    delegate: PlaylistDelegate {  }
+                    highlight: playlistHighlight
                 }
             }
 
             RowLayout {
-                spacing: 0
-
                 ToolButton {
-                    text: "+"
-                    implicitWidth: 24
-                    implicitHeight: 24
-
+                    text: qsTr("Add music files")
+                    iconSource: "plus-16.png"
                     onClicked: addingMusicDialog.open()
 
                     FileDialog {
                         id: addingMusicDialog
                         folder : musicUrl
-                        title: qsTr("Open file")
+                        title: qsTr("Open audio files")
                         nameFilters: [qsTr("MP3 files (*.mp3)"), qsTr("All files (*.*)")]
+                        selectMultiple: true
                         onAccepted: {
                             var file_protocol = "file:///"
-                            var path = fileUrl.toString()
-                            path = path.substring(file_protocol.length, path.length)
-                            playlistModel.append(
-                                        {
-                                            "path" : path,
-                                        })
+                            for (var i = 0; i < fileUrls.length; i++) {
+                                var path = fileUrls[i].toString()
+                                path = path.substring(file_protocol.length, path.length)
+                                playlistModel.append( { "path" : path, } )
+                            }
                         }
                     }
                 }
                 ToolButton {
-                    text: "-"
-                    implicitWidth: 24
-                    implicitHeight: 24
+                    text: "Remove file from playlist"
+                    iconSource: "minus-16.png"
                     onClicked: playlistModel.remove(playlistView.currentIndex)
                 }
                 ToolButton {
-                    text: "x"
-                    implicitWidth: 24
-                    implicitHeight: 24
+                    text: "Clear playlist"
+                    iconSource: "cross-16.png"
                     onClicked: playlistModel.clear()
                 }
             }
@@ -306,10 +341,13 @@ Window {
                         id : rectItem
                         anchors.fill: parent
                         color: "#33000000"
+                        radius: 5
                         visible: mouse.pressed
                     }
 
                     Text {
+                        x: 10
+                        y: 10
                         text: path
                     }
 
@@ -321,9 +359,22 @@ Window {
                     }
                 }
             }
-
+            Component {
+                id: playlistHighlight
+                Rectangle {
+                    color: "gray"
+                    radius: 5
+                    y: playlistView.currentItem.y
+                    Behavior on y {
+                        SpringAnimation {
+                            spring: 3
+                            damping: 0.2
+                        }
+                    }
+                }
+            }
             ListModel {
-                 id: playlistModel
+                id: playlistModel
             }
         }
     }

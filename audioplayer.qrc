@@ -1,19 +1,26 @@
 <RCC>
     <qresource prefix="/">
         <file alias="main.qml">qml/main.qml</file>
-        <file alias="pause-16.png">images/media-pause-16.png</file>
-        <file alias="pause-32.png">images/media-pause-32.png</file>
-        <file alias="play-16.png">images/media-play-16.png</file>
-        <file alias="play-32.png">images/media-play-32.png</file>
-        <file alias="backward-32.png">images/media-seek-backward-32.png</file>
-        <file alias="forward-32.png">images/media-seek-forward-32.png</file>
-        <file alias="stop-32.png">images/media-stop-32.png</file>
-        <file alias="mute-16.png">images/media-mute-16.png</file>
-        <file alias="mute-32.png">images/media-mute-32.png</file>
-        <file alias="mute-off-16.png">images/media-mute-off-16.png</file>
-        <file alias="mute-off-32.png">images/media-mute-off-32.png</file>
+        <file alias="pause-16.png">images/16/media-pause-16.png</file>
+        <file alias="pause-32.png">images/32/media-pause-32.png</file>
+        <file alias="play-16.png">images/16/media-play-16.png</file>
+        <file alias="play-32.png">images/32/media-play-32.png</file>
+        <file alias="backward-32.png">images/32/media-seek-backward-32.png</file>
+        <file alias="forward-32.png">images/32/media-seek-forward-32.png</file>
+        <file alias="stop-32.png">images/32/media-stop-32.png</file>
+        <file alias="mute-16.png">images/16/media-mute-16.png</file>
         <file alias="audioplayer.png">images/audioplayer.png</file>
         <file>images/audioplayer.ico</file>
-        <file alias="stop-16.png">images/media-stop-16.png</file>
+        <file alias="stop-16.png">images/16/media-stop-16.png</file>
+        <file alias="backward-16.png">images/16/media-seek-backward-16.png</file>
+        <file alias="forward-16.png">images/16/media-seek-forward-16.png</file>
+        <file alias="volume-1-16.png">images/16/media-volume-1-16.png</file>
+        <file alias="volume-2-16.png">images/16/media-volume-2-16.png</file>
+        <file alias="volume-3-16.png">images/16/media-volume-3-16.png</file>
+        <file alias="cross-16.png">images/16/cross-16.png</file>
+        <file alias="minus-16.png">images/16/minus-16.png</file>
+        <file alias="plus-16.png">images/16/plus-16.png</file>
+        <file alias="next-16.png">images/16/next-16.png</file>
+        <file alias="previous-16.png">images/16/previous-16.png</file>
     </qresource>
 </RCC>
